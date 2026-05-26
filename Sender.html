@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>Sender</title>
-
-  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-</head>
-
 <body>
 
-<h1>Connecting Camera...</h1>
+<h2>Connecting Camera...</h2>
+
+<video id="video"
+autoplay
+playsinline
+muted
+style="width:100%;max-width:400px;display:none;">
+</video>
 
 <script>
+async function startCamera() {
 
-const peer = new Peer();
+  try {
 
-navigator.mediaDevices.getUserMedia({
-  video: true,
-  audio: false
-})
-.then(stream => {
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false
+      });
 
-  const call =
-    peer.call("viewer", stream);
+    const video =
+      document.getElementById("video");
 
-});
+    video.srcObject = stream;
 
+    video.style.display = "block";
+
+    document.querySelector("h2").innerText =
+      "Camera Connected";
+
+  } catch (e) {
+
+    document.querySelector("h2").innerText =
+      "Camera Permission Denied";
+
+    console.log(e);
+  }
+}
+
+startCamera();
 </script>
 
 </body>
