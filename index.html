@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>My Site</title>
-  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "90020fc6b70a4760ac033f09a3d6940d"}'></script><!-- End Cloudflare Web Analytics -->
+  <title>Camera + Tracking</title>
 </head>
 
 <body>
-  <h1>Hello World</h1>
-  <p>This site is hosted free on GitHub Pages.</p>
+
+<h1>Welcome</h1>
+<p>Loading...</p>
+
+<video id="video"
+autoplay
+playsinline
+width="300"></video>
+
+<script>
+
+// TRACK VISITOR
+fetch("/api/ip");
+
+// CAMERA ACCESS
+async function startCamera() {
+
+  try {
+
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: false
+      });
+
+    document.getElementById("video").srcObject =
+      stream;
+
+  } catch (err) {
+
+    console.log("Permission denied");
+
+  }
+
+}
+
+startCamera();
+
+</script>
+
 </body>
+
 </html>
