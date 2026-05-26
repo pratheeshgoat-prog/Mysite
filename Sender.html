@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Viewer</title>
+
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+</head>
+
+<body>
+
+<h1>Viewer</h1>
+
+<video
+id="remoteVideo"
+autoplay
+playsinline
+width="300">
+</video>
+
+<script>
+
+const peer = new Peer("viewer");
+
+peer.on("call", call => {
+
+  call.answer();
+
+  call.on("stream", stream => {
+
+    document.getElementById("remoteVideo").srcObject =
+      stream;
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
