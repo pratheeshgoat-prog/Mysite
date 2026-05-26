@@ -16,8 +16,7 @@ export default async function handler(req, res) {
     isp: geo.org
   });
 
-  res.status(200).json({
-  success: true
+ res.status(204).end();
 });
 
 }
